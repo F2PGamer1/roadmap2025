@@ -2,135 +2,442 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Exam Codes Dashboard</title>
+    <title>Lab Exam Codes Sheet</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { display: flex; height: 100vh; background-color: #f4f6f9; color: #333; }
-        
-        /* Sidebar Styles */
-        .sidebar { width: 320px; background-color: #1e1e2f; color: #fff; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); }
-        .sidebar-header { padding: 20px; background-color: #11111e; text-align: center; font-size: 18px; font-weight: bold; border-bottom: 1px solid #2b2b3d; color: #00f2fe; }
-        .topic-list { list-style: none; }
-        .topic-item { padding: 12px 20px; border-bottom: 1px solid #2b2b3d; cursor: pointer; transition: 0.2s; font-size: 14px; display: flex; align-items: flex-start; }
-        .topic-item:hover { background-color: #2b2b3d; color: #00f2fe; }
-        .topic-item.active { background-color: #007bff; color: #fff; font-weight: bold; }
-        .topic-number { font-weight: bold; margin-right: 10px; color: #00f2fe; }
-
-        /* Main Content Styles */
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .main-header { padding: 20px; background-color: #fff; border-bottom: 1px solid #e1e4e8; display: flex; justify-content: space-between; align-items: center; }
-        .main-header h2 { font-size: 20px; color: #222; }
-        .copy-btn { padding: 8px 16px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .copy-btn:hover { background-color: #218838; }
-        
-        .code-container { flex: 1; padding: 20px; overflow: auto; background-color: #2d3139; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background-color: #f4f6f9; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1e1e2f; margin-bottom: 30px; border-bottom: 3px solid #007bff; padding-bottom: 10px; }
+        .code-block { margin-bottom: 40px; background: #2d3139; padding: 20px; border-radius: 6px; position: relative; }
+        .code-title { font-size: 18px; font-weight: bold; color: #00f2fe; margin-bottom: 10px; background: #1e1e2f; padding: 10px; border-radius: 4px; }
         pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
-        code { font-family: 'Consolas', 'Courier New', Courier, monospace; font-size: 15px; color: #abb2bf; line-height: 1.5; }
-        
-        /* Welcome Screen */
-        .welcome-screen { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; text-align: center; padding: 40px; }
-        .welcome-screen h1 { font-size: 28px; color: #1e1e2f; margin-bottom: 15px; }
-        .welcome-screen p { color: #666; font-size: 16px; max-width: 500px; line-height: 1.6; }
+        code { font-family: 'Consolas', monospace; font-size: 15px; color: #abb2bf; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="sidebar-header">Lab Exam Codes (1-27)</div>
-        <ul class="topic-list" id="topicList"></ul>
+<div class="container">
+    <h1>Lab Exam Code Sheet (1 to 27)</h1>
+
+    <div class="code-block">
+        <div class="code-title">1. Sum of all elements in an array</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], sum = 0;
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) {
+        scanf("%d", &arr[i]);
+        sum += arr[i];
+    }
+    printf("Sum = %d\n", sum);
+    return 0;
+}</code></pre>
     </div>
 
-    <div class="main-content">
-        <div class="main-header" id="mainHeader" style="display: none;">
-            <h2 id="selectedTitle">Topic Title</h2>
-            <button class="copy-btn" onclick="copyCode()">Copy Code</button>
-        </div>
-        
-        <div class="code-container" id="codeContainer" style="display: none;">
-            <pre><code id="codeBlock"></code></pre>
-        </div>
-
-        <div class="welcome-screen" id="welcomeScreen">
-            <h1>Lab Exam Dashboard Fixed!</h1>
-            <p>বামপাশের লিস্ট থেকে যেকোনো টপিকে ক্লিক করো, ডানপাশে সাথে সাথে সম্পূর্ণ C কোড দেখতে পাবে।</p>
-        </div>
+    <div class="code-block">
+        <div class="code-title">2. Find the average of array elements</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100]; float sum = 0;
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) {
+        scanf("%d", &arr[i]);
+        sum += arr[i];
+    }
+    printf("Average = %.2f\n", sum / n);
+    return 0;
+}</code></pre>
     </div>
 
-    <script>
-        const programs = {
-            1: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], sum = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        sum += arr[i];\n    }\n    printf("Sum = %d\\n", sum);\n    return 0;\n}`,
-            2: `#include <stdio.h>\n\nint main() {\n    int n, arr[100]; float sum = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        sum += arr[i];\n    }\n    printf("Average = %.2f\\n", sum / n);\n    return 0;\n}`,
-            3: `#include <stdio.h>\n\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    int max = arr[0];\n    for(int i=1; i<n; i++) {\n        if(arr[i] > max) max = arr[i];\n    }\n    printf("Largest = %d\\n", max);\n    return 0;\n}`,
-            4: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], even = 0, odd = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        if(arr[i] % 2 == 0) even++; else odd++;\n    }\n    printf("Even = %d, Odd = %d\\n", even, odd);\n    return 0;\n}`,
-            5: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], target, found = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Target: "); scanf("%d", &target);\n    for(int i=0; i<n; i++) {\n        if(arr[i] == target) { printf("Found at index %d\\n", i); found = 1; break; }\n    }\n    if(!found) printf("Not Found\\n");\n    return 0;\n}`,
-            6: `#include <stdio.h>\n\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Reversed: ");\n    for(int i=n-1; i>=0; i--) printf("%d ", arr[i]);\n    return 0;\n}`,
-            7: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], target, count = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Target: "); scanf("%d", &target);\n    for(int i=0; i<n; i++) { if(arr[i] == target) count++; }\n    printf("Occurrences = %d\\n", count);\n    return 0;\n}`,
-            8: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], max1, max2;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    max1 = max2 = -99999;\n    for(int i=0; i<n; i++) {\n        if(arr[i] > max1) { max2 = max1; max1 = arr[i]; }\n        else if(arr[i] > max2 && arr[i] < max1) { max2 = arr[i]; }\n    }\n    printf("Second Largest = %d\\n", max2);\n    return 0;\n}`,
-            9: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], pos, value;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Pos and Value: "); scanf("%d %d", &pos, &value);\n    for(int i=n; i>pos; i--) arr[i] = arr[i-1];\n    arr[pos] = value; n++;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}`,
-            10: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], pos;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Pos to delete: "); scanf("%d", &pos);\n    for(int i=pos; i<n-1; i++) arr[i] = arr[i+1]; n--;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}`,
-            11: `#include <stdio.h>\n\nint main() {\n    int n1, n2, a[50], b[50], c[100], k=0;\n    printf("Sizes: "); scanf("%d %d", &n1, &n2);\n    for(int i=0; i<n1; i++) { scanf("%d", &a[i]); c[k++] = a[i]; }\n    for(int i=0; i<n2; i++) { scanf("%d", &b[i]); c[k++] = b[i]; }\n    for(int i=0; i<k; i++) printf("%d ", c[i]);\n    return 0;\n}`,
-            12: `#include <stdio.h>\n\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    for(int i=0; i<n; i++) {\n        for(int j=i+1; j<n; j++) {\n            if(arr[i] == arr[j]) {\n                for(int k=j; k<n-1; k++) arr[k] = arr[k+1];\n                n--; j--;\n            }\n        }\n    }\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}`,
-            13: `#include <stdio.h>\n\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    int min = arr[0], max = arr[0];\n    for(int i=1; i<n; i++) {\n        if(arr[i] < min) min = arr[i];\n        if(arr[i] > max) max = arr[i];\n    }\n    printf("Max Diff = %d\\n", max - min);\n    return 0;\n}`,
-            14: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], even[100], odd[100], e=0, o=0;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        if(arr[i] % 2 == 0) even[e++] = arr[i]; else odd[o++] = arr[i];\n    }\n    printf("Even: "); for(int i=0; i<e; i++) printf("%d ", even[i]);\n    printf("\\nOdd: "); for(int i=0; i<o; i++) printf("%d ", odd[i]);\n    return 0;\n}`,
-            15: `#include <stdio.h>\n\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    int temp = arr[0];\n    for(int i=0; i<n-1; i++) arr[i] = arr[i+1];\n    arr[n-1] = temp;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}`,
-            16: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], freq[100] = {0};\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) { scanf("%d", &arr[i]); freq[arr[i]]++; }\n    for(int i=0; i<100; i++) {\n        if(freq[i] > 0) printf("%d occurs %d times\\n", i, freq[i]);\n    }\n    return 0;\n}`,
-            17: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], flag = 1;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    for(int i=0; i<n/2; i++) {\n        if(arr[i] != arr[n-1-i]) { flag = 0; break; }\n    }\n    if(flag) printf("Palindrome\\n"); else printf("Not Palindrome\\n");\n    return 0;\n}`,
-            18: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], total_sum, current_sum = 0;\n    printf("N: "); scanf("%d", &n);\n    for(int i=0; i<n-1; i++) { scanf("%d", &arr[i]); current_sum += arr[i]; }\n    total_sum = (n * (n + 1)) / 2;\n    printf("Missing = %d\\n", total_sum - current_sum);\n    return 0;\n}`,
-            19: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], temp;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    for(int i=0; i<n-1; i++) {\n        for(int j=0; j<n-i-1; j++) {\n            if(arr[j] > arr[j+1]) { temp=arr[j]; arr[j]=arr[j+1]; arr[j+1]=temp; }\n        }\n    }\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}`,
-            20: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], target, low, high, mid, found = 0;\n    printf("Size (Sorted): "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Target: "); scanf("%d", &target);\n    low = 0; high = n-1;\n    while(low <= high) {\n        mid = (low + high) / 2;\n        if(arr[mid] == target) { printf("Found at index %d\\n", mid); found = 1; break; }\n        else if(arr[mid] < target) low = mid + 1;\n        else high = mid - 1;\n    }\n    if(!found) printf("Not Found\\n");\n    return 0;\n}`,
-            21: `#include <stdio.h>\n\nint main() {\n    int n, arr[100], count = 0;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        if(arr[i] != 0) arr[count++] = arr[i];\n    }\n    while(count < n) arr[count++] = 0;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}`,
-            22: `#include <stdio.h>\n\nint main() {\n    char str[100]; int len = 0;\n    printf("String: "); scanf("%s", str);\n    while(str[len] != '\\0') len++;\n    printf("Length = %d\\n", len);\n    return 0;\n}`,
-            23: `#include <stdio.h>\n\nint main() {\n    char str[100]; int pos, len;\n    printf("String: "); scanf("%s", str);\n    printf("Start pos & Length: "); scanf("%d %d", &pos, &len);\n    for(int i=pos; i < pos+len && str[i]!='\\0'; i++) printf("%c", str[i]);\n    return 0;\n}`,
-            24: `#include <stdio.h>\n\nint main() {\n    char str[100]; int len = 0, flag = 1;\n    printf("String: "); scanf("%s", str);\n    while(str[len] != '\\0') len++;\n    for(int i=0; i<len/2; i++) {\n        if(str[i] != str[len-1-i]) { flag = 0; break; }\n    }\n    if(flag) printf("Palindrome\\n"); else printf("Not Palindrome\\n");\n    return 0;\n}`,
-            25: `#include <stdio.h>\n\nint main() {\n    char str[100]; int v=0, c=0, d=0, s=0;\n    printf("String: "); scanf("%s", str);\n    for(int i=0; str[i]!='\\0'; i++) {\n        char ch = str[i];\n        if((ch>='a'&&ch<='z') || (ch>='A'&&ch<='Z')) {\n            if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u'||ch=='A'||ch=='E'||ch=='I'||ch=='O'||ch=='U') v++;\n            else c++;\n        }\n        else if(ch>='0' && ch<='9') d++;\n        else s++;\n    }\n    printf("Vowels: %d\\nConsonants: %d\\nDigits: %d\\nSpecial: %d\\n", v, c, d, s);\n    return 0;\n}`,
-            26: `#include <stdio.h>\n\nint main() {\n    char str[100]; int len = 0;\n    printf("String: "); scanf("%s", str);\n    while(str[len] != '\\0') len++;\n    for(int i=len-1; i>=0; i--) printf("%c", str[i]);\n    return 0;\n}`,
-            27: `#include <stdio.h>\n\nint main() {\n    char str[100]; int freq[256] = {0};\n    printf("String: "); scanf("%s", str);\n    for(int i=0; str[i]!='\\0'; i++) freq[(unsigned char)str[i]]++;\n    for(int i=0; i<256; i++) {\n        if(freq[i] > 0) printf("%c: %d\\n", i, freq[i]);\n    }\n    return 0;\n}`
-        };
+    <div class="code-block">
+        <div class="code-title">3. Find the largest element in an array</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100];
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    int max = arr[0];
+    for(int i=1; i&lt;n; i++) {
+        if(arr[i] &gt; max) max = arr[i];
+    }
+    printf("Largest = %d\n", max);
+    return 0;
+}</code></pre>
+    </div>
 
-        const titles = [
-            "Sum of all elements in an array", "Find the average of array elements", "Find the largest element in an array",
-            "Count the number of even and odd elements", "Search element using linear search", "Reverse the elements of an array",
-            "Count occurrences of a given number", "Find the second largest element", "Insert element at a specified position",
-            "Delete element from specified position", "Merge two arrays into a third array", "Remove duplicate elements from array",
-            "Find maximum difference between elements", "Separate even and odd into two arrays", "Rotate array left by one position",
-            "Find frequency of each element", "Check whether array is a palindrome", "Find missing number from 1 to N",
-            "Sort array using Bubble Sort", "Binary search", "Move all zeros to the end of array",
-            "Length of string (without function)", "Substring", "Check whether string is palindrome",
-            "Count vowels, consonants, digits, special ch", "Reverse a string", "Find the frequency of each character"
-        ];
+    <div class="code-block">
+        <div class="code-title">4. Count the number of even and odd elements</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], even = 0, odd = 0;
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) {
+        scanf("%d", &arr[i]);
+        if(arr[i] % 2 == 0) even++; else odd++;
+    }
+    printf("Even = %d, Odd = %d\n", even, odd);
+    return 0;
+}</code></pre>
+    </div>
 
-        // Sidebar Populate
-        const topicList = document.getElementById('topicList');
-        titles.forEach((title, index) => {
-            const id = index + 1;
-            const li = document.createElement('li');
-            li.className = 'topic-item';
-            li.innerHTML = `<span class="topic-number">${id}.</span> <span>${title}</span>`;
-            li.onclick = () => showCode(id, li);
-            topicList.appendChild(li);
-        });
+    <div class="code-block">
+        <div class="code-title">5. Search element using linear search</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], target, found = 0;
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    printf("Target: "); scanf("%d", &target);
+    for(int i=0; i&lt;n; i++) {
+        if(arr[i] == target) { printf("Found at index %d\n", i); found = 1; break; }
+    }
+    if(!found) printf("Not Found\n");
+    return 0;
+}</code></pre>
+    </div>
 
-        function showCode(id, element) {
-            document.querySelectorAll('.topic-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
+    <div class="code-block">
+        <div class="code-title">6. Reverse the elements of an array</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100];
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    printf("Reversed: ");
+    for(int i=n-1; i&gt;=0; i--) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
 
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('mainHeader').style.display = 'flex';
-            document.getElementById('codeContainer').style.display = 'block';
-            
-            document.getElementById('selectedTitle').innerText = `${id}. ${titles[id-1]}`;
-            document.getElementById('codeBlock').innerText = programs[id];
+    <div class="code-block">
+        <div class="code-title">7. Count occurrences of a given number</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], target, count = 0;
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    printf("Target: "); scanf("%d", &target);
+    for(int i=0; i&lt;n; i++) { if(arr[i] == target) count++; }
+    printf("Occurrences = %d\n", count);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">8. Find the second largest element</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], max1, max2;
+    printf("Size: "); scanf("%d", &n);
+    printf("Elements: ");
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    max1 = max2 = -99999;
+    for(int i=0; i<n; i++) {
+        if(arr[i] &gt; max1) { max2 = max1; max1 = arr[i]; }
+        else if(arr[i] &gt; max2 && arr[i] &lt; max1) { max2 = arr[i]; }
+    }
+    printf("Second Largest = %d\n", max2);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">9. Insert element at a specified position</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], pos, value;
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    printf("Pos and Value: "); scanf("%d %d", &pos, &value);
+    for(int i=n; i&gt;pos; i--) arr[i] = arr[i-1];
+    arr[pos] = value; n++;
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">10. Delete element from specified position</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], pos;
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    printf("Pos to delete: "); scanf("%d", &pos);
+    for(int i=pos; i&lt;n-1; i++) arr[i] = arr[i+1]; n--;
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">11. Merge two arrays into a third array</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n1, n2, a[50], b[50], c[100], k=0;
+    printf("Sizes: "); scanf("%d %d", &n1, &n2);
+    for(int i=0; i&lt;n1; i++) { scanf("%d", &a[i]); c[k++] = a[i]; }
+    for(int i=0; i&lt;n2; i++) { scanf("%d", &b[i]); c[k++] = b[i]; }
+    for(int i=0; i&lt;k; i++) printf("%d ", c[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">12. Remove duplicate elements from array</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100];
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    for(int i=0; i&lt;n; i++) {
+        for(int j=i+1; j&lt;n; j++) {
+            if(arr[i] == arr[j]) {
+                for(int k=j; k&lt;n-1; k++) arr[k] = arr[k+1];
+                n--; j--;
+            }
         }
+    }
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
 
-        function copyCode() {
-            const codeText = document.getElementById('codeBlock').innerText;
-            navigator.clipboard.writeText(codeText).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                btn.innerText = "Copied!";
-                setTimeout(() => { btn.innerText = "Copy Code"; }, 1500);
-            });
+    <div class="code-block">
+        <div class="code-title">13. Find maximum difference between elements</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100];
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    int min = arr[0], max = arr[0];
+    for(int i=1; i&lt;n; i++) {
+        if(arr[i] &lt; min) min = arr[i];
+        if(arr[i] &gt; max) max = arr[i];
+    }
+    printf("Max Diff = %d\n", max - min);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">14. Separate even and odd into two arrays</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], even[100], odd[100], e=0, o=0;
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) {
+        scanf("%d", &arr[i]);
+        if(arr[i] % 2 == 0) even[e++] = arr[i]; else odd[o++] = arr[i];
+    }
+    printf("Even: "); for(int i=0; i&lt;e; i++) printf("%d ", even[i]);
+    printf("\nOdd: "); for(int i=0; i&lt;o; i++) printf("%d ", odd[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">15. Rotate array left by one position</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100];
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    int temp = arr[0];
+    for(int i=0; i&lt;n-1; i++) arr[i] = arr[i+1];
+    arr[n-1] = temp;
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">16. Find frequency of each element</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], freq[100] = {0};
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) { scanf("%d", &arr[i]); freq[arr[i]]++; }
+    for(int i=0; i&lt;100; i++) {
+        if(freq[i] &gt; 0) printf("%d occurs %d times\n", i, freq[i]);
+    }
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">17. Check whether array is a palindrome</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], flag = 1;
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    for(int i=0; i&lt;n/2; i++) {
+        if(arr[i] != arr[n-1-i]) { flag = 0; break; }
+    }
+    if(flag) printf("Palindrome\n"); else printf("Not Palindrome\n");
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">18. Find missing number from 1 to N</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], total_sum, current_sum = 0;
+    printf("N: "); scanf("%d", &n);
+    for(int i=0; i&lt;n-1; i++) { scanf("%d", &arr[i]); current_sum += arr[i]; }
+    total_sum = (n * (n + 1)) / 2;
+    printf("Missing = %d\n", total_sum - current_sum);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">19. Sort array using Bubble Sort</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], temp;
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    for(int i=0; i&lt;n-1; i++) {
+        for(int j=0; j&lt;n-i-1; j++) {
+            if(arr[j] &gt; arr[j+1]) { temp=arr[j]; arr[j]=arr[j+1]; arr[j+1]=temp; }
         }
-    </script>
+    }
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">20. Binary search</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], target, low, high, mid, found = 0;
+    printf("Size (Sorted): "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) scanf("%d", &arr[i]);
+    printf("Target: "); scanf("%d", &target);
+    low = 0; high = n-1;
+    while(low &lt;= high) {
+        mid = (low + high) / 2;
+        if(arr[mid] == target) { printf("Found at index %d\n", mid); found = 1; break; }
+        else if(arr[mid] &lt; target) low = mid + 1;
+        else high = mid - 1;
+    }
+    if(!found) printf("Not Found\n");
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">21. Move all zeros to the end of array</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n, arr[100], count = 0;
+    printf("Size: "); scanf("%d", &n);
+    for(int i=0; i&lt;n; i++) {
+        scanf("%d", &arr[i]);
+        if(arr[i] != 0) arr[count++] = arr[i];
+    }
+    while(count &lt; n) arr[count++] = 0;
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">22. Length of string (without function)</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char str[100]; int len = 0;
+    printf("String: "); scanf("%s", str);
+    while(str[len] != '\0') len++;
+    printf("Length = %d\n", len);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">23. Substring</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char str[100]; int pos, len;
+    printf("String: "); scanf("%s", str);
+    printf("Start pos & Length: "); scanf("%d %d", &pos, &len);
+    for(int i=pos; i &lt; pos+len && str[i]!='\0'; i++) printf("%c", str[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">24. Check whether string is palindrome</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char str[100]; int len = 0, flag = 1;
+    printf("String: "); scanf("%s", str);
+    while(str[len] != '\0') len++;
+    for(int i=0; i&lt;len/2; i++) {
+        if(str[i] != str[len-1-i]) { flag = 0; break; }
+    }
+    if(flag) printf("Palindrome\n"); else printf("Not Palindrome\n");
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">25. Count vowels, consonants, digits, special ch</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char str[100]; int v=0, c=0, d=0, s=0;
+    printf("String: "); scanf("%s", str);
+    for(int i=0; str[i]!='\0'; i++) {
+        char ch = str[i];
+        if((ch&gt;='a'&&ch&lt;='z') || (ch&gt;='A'&&ch&lt;='Z')) {
+            if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u'||ch=='A'||ch=='E'||ch=='I'||ch=='O'||ch=='U') v++;
+            else c++;
+        }
+        else if(ch&gt;='0' && ch&lt;='9') d++;
+        else s++;
+    }
+    printf("Vowels: %d\nConsonants: %d\nDigits: %d\nSpecial: %d\n", v, c, d, s);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">26. Reverse a string</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char str[100]; int len = 0;
+    printf("String: "); scanf("%s", str);
+    while(str[len] != '\0') len++;
+    for(int i=len-1; i&gt;=0; i--) printf("%c", str[i]);
+    return 0;
+}</code></pre>
+    </div>
+
+    <div class="code-block">
+        <div class="code-title">27. Find the frequency of each character</div>
+        <pre><code>#include &lt;stdio.h&gt;
+int main() {
+    char str[100]; int freq[256] = {0};
+    printf("String: "); scanf("%s", str);
+    for(int i=0; str[i]!='\0'; i++) freq[(unsigned char)str[i]]++;
+    for(int i=0; i&lt;256; i++) {
+        if(freq[i] &gt; 0) printf("%c: %d\n", i, freq[i]);
+    }
+    return 0;
+}</code></pre>
+    </div>
+
+</div>
+
 </body>
 </html>
