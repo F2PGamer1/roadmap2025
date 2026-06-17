@@ -1,252 +1,137 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="utf-8">
-<title>PUBG 2025 ROADMAP REALTIME LIVE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exam Codes Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { display: flex; height: 100vh; background-color: #f4f6f9; color: #333; }
+        
+        /* Sidebar Styles */
+        .sidebar { width: 320px; background-color: #1e1e2f; color: #fff; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); }
+        .sidebar-header { padding: 20px; background-color: #11111e; text-align: center; font-size: 18px; font-weight: bold; border-bottom: 1px solid #2b2b3d; color: #00f2fe; }
+        .topic-list { list-style: none; }
+        .topic-item { padding: 12px 20px; border-bottom: 1px solid #2b2b3d; cursor: pointer; transition: 0.2s; font-size: 14px; display: flex; align-items: flex-start; }
+        .topic-item:hover { background-color: #2b2b3d; color: #00f2fe; }
+        .topic-item.active { background-color: #007bff; color: #fff; font-weight: bold; }
+        .topic-number { font-weight: bold; margin-right: 10px; color: #00f2fe; }
+        .topic-item.active .topic-number { color: #fff; }
 
-:root {
-  --bg: #0f172a;
-  --text: #e2e8f0;
-  --glass: rgba(255,255,255,0.1);
-  --accent: rgba(96,165,250,0.7);
-  --secondary: rgba(148,163,184,0.6);
-  --highlight: rgba(255,255,255,0.3);
-}
-
-* { box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-
-body {
-  margin:0; padding:24px;
-  background: var(--bg); color: var(--text);
-  overflow-x:hidden; position:relative;
-}
-
-canvas#bgParticles {
-  position:fixed; top:0; left:0;
-  width:100%; height:100%; z-index:-1;
-}
-
-header {
-  display:flex; flex-direction:column; align-items:center; gap:12px; margin-bottom:30px;
-}
-
-h1 {
-  font-size:2rem; text-align:center;
-  color:var(--text); background:var(--glass);
-  padding:16px 24px; border-radius:20px; backdrop-filter: blur(12px);
-  box-shadow:0 8px 24px rgba(0,0,0,0.2);
-  position:relative;
-  animation:fadeInSlide 1s ease forwards;
-}
-
-select {
-  padding:10px 16px; font-weight:500; border-radius:12px; border:none;
-  background: var(--glass); color: var(--text); backdrop-filter:blur(8px);
-  box-shadow:0 4px 16px rgba(0,0,0,0.15); cursor:pointer; transition:all 0.3s ease;
-  animation:fadeInSlide 1.2s ease forwards;
-}
-select:hover { background: rgba(255,255,255,0.2); }
-
-table {
-  width:100%; border-collapse:collapse; margin-top:20px;
-  background:var(--glass); border-radius:20px; overflow:hidden; backdrop-filter: blur(12px);
-  box-shadow:0 12px 24px rgba(0,0,0,0.15); animation:fadeInSlide 1.4s ease forwards;
-}
-th, td { padding:14px 18px; text-align:left; color:var(--text); }
-th { background: linear-gradient(135deg, rgba(59,130,246,0.8), rgba(96,165,250,0.8));
-     color:#fff; font-weight:600; backdrop-filter: blur(8px);}
-tr { opacity:0; transform:translateY(20px); animation:rowFade 0.6s ease forwards; transition:background 0.3s ease;}
-tr:hover td { background: rgba(255,255,255,0.15);}
-.status.complete { color:#10b981; font-weight:bold; }
-.status.partial { color:#f59e0b; font-weight:bold; }
-.status.pending { color:#8b5cf6; font-weight:bold; }
-
-.chart-container { margin-top:40px; display:flex; justify-content:center; }
-canvas#progressChart {
-  width:90%; max-width:900px; background:var(--glass); border-radius:20px;
-  padding:20px; box-shadow:0 12px 32px rgba(0,0,0,0.15); animation:chartSlide 1s ease forwards;
-}
-
-footer { margin-top:40px; font-size:0.9rem; text-align:center; color:var(--secondary); animation:fadeIn 1s ease forwards; }
-
-@keyframes fadeInSlide { 0%{opacity:0; transform:translateY(-20px) scale(0.97);} 100%{opacity:1; transform:translateY(0) scale(1);} }
-@keyframes rowFade { 0%{opacity:0; transform:translateY(20px);} 100%{opacity:1; transform:translateY(0);} }
-@keyframes chartSlide { 0%{opacity:0; transform:translateY(30px) scaleY(0.8);} 100%{opacity:1; transform:translateY(0) scaleY(1);} }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-@keyframes glitch { 0%{text-shadow:2px 0 #3b82f6, -2px 0 #f59e0b;} 20%{text-shadow:-2px 0 #3b82f6,2px 0 #f59e0b;} 40%{text-shadow:2px 0 #f59e0b,-2px 0 #3b82f6;} 60%{text-shadow:-2px 0 #f59e0b,2px 0 #3b82f6;} 80%{text-shadow:2px 0 #3b82f6,-2px 0 #f59e0b;} 100%{text-shadow:none;} }
-
-/* ===== MOBILE OPTIMIZATIONS ===== */
-@media (max-width: 768px) {
-  body { padding: 12px; }
-
-  h1 { font-size: 1.5rem; padding: 12px 16px; }
-
-  select { width: 100%; padding: 8px 12px; font-size: 0.9rem; }
-
-  table { display: block; overflow-x: auto; white-space: nowrap; }
-
-  th, td { padding: 10px 12px; font-size: 0.85rem; }
-
-  .chart-container { margin-top: 20px; }
-
-  canvas#progressChart { width: 100% !important; max-width: 100%; height: 300px !important; padding: 12px; }
-}
-
-@media (max-width: 480px) {
-  h1 { font-size: 1.2rem; padding: 8px 10px; }
-  select { font-size: 0.8rem; padding: 6px 10px; }
-  th, td { font-size: 0.75rem; padding: 8px 10px; }
-  canvas#progressChart { height: 250px !important; }
-}
-</style>
+        /* Main Content Styles */
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .main-header { padding: 20px; background-color: #fff; border-bottom: 1px solid #e1e4e8; display: flex; justify-content: space-between; align-items: center; }
+        .main-header h2 { font-size: 20px; color: #222; }
+        .copy-btn { padding: 8px 16px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .copy-btn:hover { background-color: #218838; }
+        
+        .code-container { flex: 1; padding: 20px; overflow-auto: auto; background-color: #2d3139; position: relative; }
+        pre { margin: 0; }
+        code { font-family: 'Consolas', 'Courier New', Courier, monospace; font-size: 15px; color: #abb2bf; line-height: 1.5; }
+        
+        /* Welcom Screen */
+        .welcome-screen { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; text-align: center; padding: 40px; }
+        .welcome-screen h1 { font-size: 28px; color: #1e1e2f; margin-bottom: 15px; }
+        .welcome-screen p { color: #666; font-size: 16px; max-width: 500px; line-height: 1.6; }
+    </style>
 </head>
 <body>
-<canvas id="bgParticles"></canvas>
 
-<header>
-  <h1 id="title">PUBG 2025 ROADMAP EXISTS UPDATES AND UPGRADES</h1>
-  <select id="langSelector" onchange="changeLang()">
-    <option value="bn">বাংলা</option>
-    <option value="en">English</option>
-    <option value="hi">हिन्दी</option>
-  </select>
-</header>
+    <div class="sidebar">
+        <div class="sidebar-header">Lab Exam Codes (1-27)</div>
+        <ul class="topic-list" id="topicList">
+            </ul>
+    </div>
 
-<table id="roadmapTable">
-  <thead>
-    <tr>
-      <th>Release Year</th>
-      <th>Roadmap Point</th>
-      <th>Status</th>
-      <th>Progress %</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody id="tableBody"></tbody>
-</table>
+    <div class="main-content">
+        <div class="main-header" id="mainHeader" style="display: none;">
+            <h2 id="selectedTitle">Topic Title</h2>
+            <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+        </div>
+        
+        <div class="code-container" id="codeContainer" style="display: none;">
+            <pre><code id="codeBlock"></code></pre>
+        </div>
 
-<div class="chart-container">
-  <canvas id="progressChart"></canvas>
-</div>
+        <div class="welcome-screen" id="welcomeScreen">
+            <h1>Lab Exam Cheat Sheet Dashboard</h1>
+            <p>বামপাশের তালিকা থেকে যেকোনো প্রশ্নে ক্লিক করো। ডানপাশে সাথে সাথে সম্পূর্ণ রেডিমেড C কোড চলে আসবে। ল্যাব টেস্টের জন্য অল দ্য বেস্ট!</p>
+        </div>
+    </div>
 
-<footer>© 2025 All rights reserved by SiRJ0, PUBG STUDIOS, KRAFTON INC.</footer>
+    <script>
+        // 27 Programs Data Array
+        const programs = [
+            { id: 1, title: "Sum of all elements in an array", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], sum = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        sum += arr[i];\n    }\n    printf("Sum = %d\\n", sum);\n    return 0;\n}` },
+            { id: 2, title: "Find the average of array elements", code: `#include <stdio.h>\nint main() {\n    int n, arr[100]; float sum = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        sum += arr[i];\n    }\n    printf("Average = %.2f\\n", sum / n);\n    return 0;\n}` },
+            { id: 3, title: "Find the largest element in an array", code: `#include <stdio.h>\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    int max = arr[0];\n    for(int i=1; i<n; i++) {\n        if(arr[i] > max) max = arr[i];\n    }\n    printf("Largest = %d\\n", max);\n    return 0;\n}` },
+            { id: 4, title: "Count the number of even and odd elements", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], even = 0, odd = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        if(arr[i] % 2 == 0) even++; else odd++;\n    }\n    printf("Even = %d, Odd = %d\\n", even, odd);\n    return 0;\n}` },
+            { id: 5, title: "Search element using linear search", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], target, found = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Target: "); scanf("%d", &target);\n    for(int i=0; i<n; i++) {\n        if(arr[i] == target) { printf("Found at index %d\\n", i); found = 1; break; }\n    }\n    if(!found) printf("Not Found\\n");\n    return 0;\n}` },
+            { id: 6, title: "Reverse the elements of an array", code: `#include <stdio.h>\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Reversed: ");\n    for(int i=n-1; i>=0; i--) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 7, title: "Count occurrences of a given number", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], target, count = 0;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Target: "); scanf("%d", &target);\n    for(int i=0; i<n; i++) { if(arr[i] == target) count++; }\n    printf("Occurrences = %d\\n", count);\n    return 0;\n}` },
+            { id: 8, title: "Find the second largest element", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], max1, max2;\n    printf("Size: "); scanf("%d", &n);\n    printf("Elements: ");\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    max1 = max2 = -99999;\n    for(int i=0; i<n; i++) {\n        if(arr[i] > max1) { max2 = max1; max1 = arr[i]; }\n        else if(arr[i] > max2 && arr[i] < max1) { max2 = arr[i]; }\n    }\n    printf("Second Largest = %d\\n", max2);\n    return 0;\n}` },
+            { id: 9, title: "Insert element at a specified position", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], pos, value;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Pos and Value: "); scanf("%d %d", &pos, &value);\n    for(int i=n; i>pos; i--) arr[i] = arr[i-1];\n    arr[pos] = value; n++;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 10, title: "Delete element from specified position", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], pos;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Pos to delete: "); scanf("%d", &pos);\n    for(int i=pos; i<n-1; i++) arr[i] = arr[i+1]; n--;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 11, title: "Merge two arrays into a third array", code: `#include <stdio.h>\nint main() {\n    int n1, n2, a[50], b[50], c[100], k=0;\n    printf("Sizes: "); scanf("%d %d", &n1, &n2);\n    for(int i=0; i<n1; i++) { scanf("%d", &a[i]); c[k++] = a[i]; }\n    for(int i=0; i<n2; i++) { scanf("%d", &b[i]); c[k++] = b[i]; }\n    for(int i=0; i<k; i++) printf("%d ", c[i]);\n    return 0;\n}` },
+            { id: 12, title: "Remove duplicate elements from array", code: `#include <stdio.h>\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    for(int i=0; i<n; i++) {\n        for(int j=i+1; j<n; j++) {\n            if(arr[i] == arr[j]) {\n                for(int k=j; k<n-1; k++) arr[k] = arr[k+1];\n                n--; j--;\n            }\n        }\n    }\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 13, title: "Find maximum difference between elements", code: `#include <stdio.h>\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    int min = arr[0], max = arr[0];\n    for(int i=1; i<n; i++) {\n        if(arr[i] < min) min = arr[i];\n        if(arr[i] > max) max = arr[i];\n    }\n    printf("Max Diff = %d\\n", max - min);\n    return 0;\n}` },
+            { id: 14, title: "Separate even and odd into two arrays", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], even[100], odd[100], e=0, o=0;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        if(arr[i] % 2 == 0) even[e++] = arr[i]; else odd[o++] = arr[i];\n    }\n    printf("Even: "); for(int i=0; i<e; i++) printf("%d ", even[i]);\n    printf("\\nOdd: "); for(int i=0; i<o; i++) printf("%d ", odd[i]);\n    return 0;\n}` },
+            { id: 15, title: "Rotate array left by one position", code: `#include <stdio.h>\nint main() {\n    int n, arr[100];\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    int temp = arr[0];\n    for(int i=0; i<n-1; i++) arr[i] = arr[i+1];\n    arr[n-1] = temp;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 16, title: "Find frequency of each element", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], freq[100] = {0};\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) { scanf("%d", &arr[i]); freq[arr[i]]++; }\n    for(int i=0; i<100; i++) {\n        if(freq[i] > 0) printf("%d occurs %d times\\n", i, freq[i]);\n    }\n    return 0;\n}` },
+            { id: 17, title: "Check whether array is a palindrome", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], flag = 1;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    for(int i=0; i<n/2; i++) {\n        if(arr[i] != arr[n-1-i]) { flag = 0; break; }\n    }\n    if(flag) printf("Palindrome\\n"); else printf("Not Palindrome\\n");\n    return 0;\n}` },
+            { id: 18, title: "Find missing number from 1 to N", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], total_sum, current_sum = 0;\n    printf("N: "); scanf("%d", &n);\n    for(int i=0; i<n-1; i++) { scanf("%d", &arr[i]); current_sum += arr[i]; }\n    total_sum = (n * (n + 1)) / 2;\n    printf("Missing = %d\\n", total_sum - current_sum);\n    return 0;\n}` },
+            { id: 19, title: "Sort array using Bubble Sort", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], temp;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    for(int i=0; i<n-1; i++) {\n        for(int j=0; j<n-i-1; j++) {\n            if(arr[j] > arr[j+1]) { temp=arr[j]; arr[j]=arr[j+1]; arr[j+1]=temp; }\n        }\n    }\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 20, title: "Binary search", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], target, low, high, mid, found = 0;\n    printf("Size (Sorted): "); scanf("%d", &n);\n    for(int i=0; i<n; i++) scanf("%d", &arr[i]);\n    printf("Target: "); scanf("%d", &target);\n    low = 0; high = n-1;\n    while(low <= high) {\n        mid = (low + high) / 2;\n        if(arr[mid] == target) { printf("Found at index %d\\n", mid); found = 1; break; }\n        else if(arr[mid] < target) low = mid + 1;\n        else high = mid - 1;\n    }\n    if(!found) printf("Not Found\\n");\n    return 0;\n}` },
+            { id: 21, title: "Move all zeros to the end of array", code: `#include <stdio.h>\nint main() {\n    int n, arr[100], count = 0;\n    printf("Size: "); scanf("%d", &n);\n    for(int i=0; i<n; i++) {\n        scanf("%d", &arr[i]);\n        if(arr[i] != 0) arr[count++] = arr[i];\n    }\n    while(count < n) arr[count++] = 0;\n    for(int i=0; i<n; i++) printf("%d ", arr[i]);\n    return 0;\n}` },
+            { id: 22, title: "Length of string (without function)", code: `#include <stdio.h>\nint main() {\n    char str[100]; int len = 0;\n    printf("String: "); scanf("%s", str);\n    while(str[len] != '\\0') len++;\n    printf("Length = %d\\n", len);\n    return 0;\n}` },
+            { id: 23, title: "Substring", code: `#include <stdio.h>\nint main() {\n    char str[100]; int pos, len;\n    printf("String: "); scanf("%s", str);\n    printf("Start pos & Length: "); scanf("%d %d", &pos, &len);\n    for(int i=pos; i < pos+len && str[i]!='\\0'; i++) printf("%c", str[i]);\n    return 0;\n}` },
+            { id: 24, title: "Check whether string is palindrome", code: `#include <stdio.h>\nint main() {\n    char str[100]; int len = 0, flag = 1;\n    printf("String: "); scanf("%s", str);\n    while(str[len] != '\\0') len++;\n    for(int i=0; i<len/2; i++) {\n        if(str[i] != str[len-1-i]) { flag = 0; break; }\n    }\n    if(flag) printf("Palindrome\\n"); else printf("Not Palindrome\\n");\n    return 0;\n}` },
+            { id: 25, title: "Count vowels, consonants, digits, special ch", code: `#include <stdio.h>\nint main() {\n    char str[100]; int v=0, c=0, d=0, s=0;\n    printf("String: "); scanf("%s", str);\n    for(int i=0; str[i]!='\\0'; i++) {\n        char ch = str[i];\n        if((ch>='a'&&ch<='z') || (ch>='A'&&ch<='Z')) {\n            if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u'||ch=='A'||ch=='E'||ch=='I'||ch=='O'||ch=='U') v++;\n            else c++;\n        }\n        else if(ch>='0' && ch<='9') d++;\n        else s++;\n    }\n    printf("Vowels: %d\\nConsonants: %d\\nDigits: %d\\nSpecial: %d\\n", v, c, d, s);\n    return 0;\n}` },
+            { id: 26, title: "Reverse a string", code: `#include <stdio.h>\nint main() {\n    char str[100]; int len = 0;\n    printf("String: "); scanf("%s", str);\n    while(str[len] != '\\0') len++;\n    for(int i=len-1; i>=0; i--) printf("%c", str[i]);\n    return 0;\n}` },
+            { id: 27, title: "Find the frequency of each character", code: `#include <stdio.h>\nint main() {\n    char str[100]; int freq[256] = {0};\n    printf("String: "); scanf("%s", str);\n    for(int i=0; str[i]!='\\0'; i++) freq[(unsigned char)str[i]]++;\n    for(int i=0; i<256; i++) {\n        if(freq[i] > 0) printf("%c: %d\\n", i, freq[i]);\n    }\n    return 0;\n}` }
+        ];
 
-<script>
-// ==== PARTICLES + GLOWY FOGGY EFFECT ====
-const canvas = document.getElementById('bgParticles');
-const ctx = canvas.getContext('2d');
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
-let mouse = {x: width/2, y: height/2};
-window.addEventListener('resize',()=>{ width=canvas.width=window.innerWidth; height=canvas.height=window.innerHeight; });
-window.addEventListener('mousemove', e=>{ mouse.x=e.clientX; mouse.y=e.clientY; });
+        // Populate Sidebar
+        const topicList = document.getElementById('topicList');
+        programs.forEach(prog => {
+            const li = document.createElement('li');
+            li.className = 'topic-item';
+            li.innerHTML = `<span class="topic-number">${prog.id}.</span> <span>${prog.title}</span>`;
+            li.onclick = () => showCode(prog.id, li);
+            topicList.appendChild(li);
+        });
 
-class GlowParticle{
-  constructor(){
-    this.x=Math.random()*width;
-    this.y=Math.random()*height;
-    this.size=Math.random()*2+1;
-    this.speedX=(Math.random()-0.5)*0.3;
-    this.speedY=(Math.random()-0.5)*0.3;
-    this.colorHue=Math.random()*360;
-  }
-  update(){
-    this.x += this.speedX + (mouse.x-this.x)*0.0005;
-    this.y += this.speedY + (mouse.y-this.y)*0.0005;
-    if(this.x>width) this.x=0;
-    if(this.x<0) this.x=width;
-    if(this.y>height) this.y=0;
-    if(this.y<0) this.y=height;
-    this.colorHue += 0.3;
-    if(this.colorHue>360) this.colorHue=0;
-  }
-  draw(){
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle=`hsla(${this.colorHue},80%,60%,0.3)`;
-    ctx.shadowBlur=10;
-    ctx.shadowColor=`hsla(${this.colorHue},80%,70%,0.5)`;
-    ctx.fill();
-  }
-}
+        // Show selected program code
+        function showCode(id, element) {
+            // Remove active classes
+            document.querySelectorAll('.topic-item').forEach(item => item.classList.remove('active'));
+            element.classList.remove('active');
+            element.classList.add('active');
 
-const glowParticles=[];
-for(let i=0;i<150;i++) glowParticles.push(new GlowParticle());
+            const prog = programs.find(p => p.id === id);
+            if(prog) {
+                document.getElementById('welcomeScreen').style.display = 'none';
+                document.getElementById('mainHeader').style.display = 'flex';
+                document.getElementById('codeContainer').style.display = 'block';
+                
+                document.getElementById('selectedTitle').innerText = \`\${prog.id}. \${prog.title}\`;
+                document.getElementById('codeBlock').innerText = prog.code;
+            }
+        }
 
-// SiRJ0 text particles
-class Particle{constructor(x,y){this.baseX=x;this.baseY=y;this.x=Math.random()*width;this.y=Math.random()*height;this.size=Math.random()*2+1;this.speedX=(Math.random()-0.5)*0.5;this.speedY=(Math.random()-0.5)*0.5;}update(){const dx=this.baseX-this.x,dy=this.baseY-this.y;this.x+=dx*0.05+(mouse.x-this.x)*0.002;this.y+=dy*0.05+(mouse.y-this.y)*0.002;}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(96,165,250,0.7)';ctx.fill();}}
-const tempCanvas=document.createElement('canvas');const tempCtx=tempCanvas.getContext('2d');tempCanvas.width=width;tempCanvas.height=height;
-tempCtx.font="bold 180px Roboto";tempCtx.textAlign="center";tempCtx.fillStyle="white";tempCtx.fillText("SiRJ0",width/2,height/2);
-const imgData=tempCtx.getImageData(0,0,width,height);
-const particlesArray=[];
-for(let y=0;y<imgData.height;y+=6){for(let x=0;x<imgData.width;x+=6){const alpha=imgData.data[(y*imgData.width+x)*4+3];if(alpha>128) particlesArray.push(new Particle(x,y));}}
-function animateParticles(){
-  ctx.clearRect(0,0,width,height);
-  glowParticles.forEach(p=>{p.update();p.draw();});
-  particlesArray.forEach(p=>{p.update();p.draw();});
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-// ==== DATA, TABLE & CHART ====
-const data=[
-{year:2025,key:'Destructible Terrain',bn:'ভূমি ধ্বংসযোগ্যতা',hi:'विनाशकारी भूभाग',progress:85,status:'complete',note:{en:'Active on Taego, testing elsewhere.',bn:'Taego-তে চালু, অন্যান্য ম্যাপে টেস্ট চলছে।',hi:'Taego पर सक्रिय, अन्य नक्शों में परीक्षण जारी।'}},
-{year:2025,key:'UGC Toolkit',bn:'UGC টুলকিট (আলফা)',hi:'UGC टूलकिट (अल्फा)',progress:75,status:'partial',note:{en:'PC Alpha live, console pending.',bn:'PC আলফা চালু, Console এখনো আসেনি।',hi:'पीसी अल्फा लाइव, कंसोल अभी बाकी।'}},
-{year:2025,key:'Pass System Revamp',bn:'পাস সিস্টেম রিভ্যাম্প',hi:'पास सिस्टम सुधार',progress:95,status:'complete',note:{en:'Multi-pass system live in 38.1 update.',bn:'৩৮.১ আপডেটে নতুন মাল্টি-পাস সিস্টেম।',hi:'38.1 अपडेट में मल्टी-पास सिस्टम लाइव।'}},
-{year:2025,key:'Gameplay Unification',bn:'গেমপ্লে ইউনিফিকেশন',hi:'गेमप्ले एकीकरण',progress:70,status:'partial',note:{en:'Integrated in multiple maps.',bn:'বিভিন্ন ম্যাপে একীভূত করা হয়েছে।',hi:'कई नक्शों में एकीकृत।'}},
-{year:'2026 END / 2027 END',key:'UE5 Transition',bn:'UE5 রূপান্তর',hi:'UE5 रूपांतरण',progress:30,status:'pending',note:{en:'Development testing ongoing.',bn:'উন্নয়ন পর্যায়ে টেস্টিং চলছে।',hi:'विकास परीक्षण जारी।'}},
-{year:2025,key:'Console Lifecycle',bn:'কনসোল সাপোর্ট পরিবর্তন',hi:'कंसोल जीवनचक्र परिवर्तन',progress:90,status:'partial',note:{en:'PS4/Xbox One support ends Nov 2025.',bn:'PS4/Xbox One সাপোর্ট শেষ ২০২৫-এ।',hi:'PS4/Xbox One समर्थन नवंबर 2025 में समाप्त।'}},
-{year:2025,key:'Esports Expansion',bn:'ইস্পোর্টস সম্প্রসারণ',hi:'ईस्पोर्ट्स विस्तार',progress:90,status:'complete',note:{en:'Regional/global tournaments active.',bn:'রিজিওনাল ও গ্লোবাল টুর্নামেন্ট চলছে।',hi:'क्षेत्रीय और वैश्विक टूर्नामेंट सक्रिय।'}}
-];
-
-const langText={en:{title:'PUBG 2025 ROADMAP REALTIME UPDATES ',status:{complete:'Complete',partial:'Partial',pending:'Pending'},columns:['Release Year','Roadmap Point','Status','Progress %','Notes']},bn:{title:'PUBG 2025 ROADMAP',status:{complete:'সম্পন্ন',partial:'আংশিক',pending:'চলমান'},columns:['রিলিজ বছর','Roadmap Point','অবস্থা','অগ্রগতি %','নোট']},hi:{title:'PUBG 2025 ROADMAP',status:{complete:'पूर्ण',partial:'आंशिक',pending:'प्रगति पर'},columns:['रिलीज वर्ष','रोडमैप पॉइंट','स्थिति','अग्रगति %','टिप्पणी']}};
-let chart;
-
-function changeLang(){
-  const lang=document.getElementById('langSelector').value;
-  const {title,status,columns}=langText[lang];
-  document.getElementById('title').textContent=title;
-  document.querySelectorAll('#roadmapTable th').forEach((c,i)=>c.textContent=columns[i]);
-  const tbody=document.getElementById('tableBody'); tbody.innerHTML='';
-  data.forEach((d,i)=>{
-    const tr=document.createElement('tr'); tr.style.animationDelay=`${i*0.1}s`;
-    tr.innerHTML=`<td>${d.year}</td><td>${d[lang]||d.key}</td><td class="status ${d.status}">${status[d.status]}</td><td>${d.progress}</td><td>${d.note[lang]}</td>`;
-    tbody.appendChild(tr);
-  });
-  drawComboChart(lang);
-}
-
-function drawComboChart(lang){
-  const ctx=document.getElementById('progressChart').getContext('2d');
-  if(chart) chart.destroy();
-  const labels=data.map(d=>d[lang]||d.key);
-  const initialValues=data.map(d=>0);
-  const targetValues=data.map(d=>d.progress);
-  const colors=data.map(d=>d.status==='complete'?'rgba(16,185,129,0.7)':d.status==='partial'?'rgba(245,158,11,0.7)':'rgba(139,92,246,0.7)');
-  chart=new Chart(ctx,{
-    data:{labels,datasets:[
-      {type:'bar',label:'Progress %',data:initialValues,backgroundColor:colors,borderRadius:20,barThickness:30,borderSkipped:false,hoverBackgroundColor:colors.map(c=>c.replace('0.7','1'))},
-      {type:'line',label:'Trend',data:initialValues,borderColor:'#3b82f6',borderWidth:3,tension:0.4,fill:false,pointBackgroundColor:'#fff',pointBorderColor:'#3b82f6',pointRadius:5}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      scales:{x:{grid:{display:false}},y:{beginAtZero:true,max:100,grid:{color:'rgba(255,255,255,0.05)'}}},
-      plugins:{legend:{display:true,labels:{usePointStyle:true,pointStyle:'circle'}},tooltip:{backgroundColor:'rgba(15,23,42,0.85)',padding:10,bodyFont:{size:14},callbacks:{label:context=>context.dataset.data[context.dataIndex]+'%'}}},
-      animation:{duration:800,easing:'easeOutQuart'}
-    }
-  });
-  setTimeout(()=>{ targetValues.forEach((val,i)=>setTimeout(()=>{chart.data.datasets[0].data[i]=val;chart.data.datasets[1].data[i]=val;chart.update();},i*300));},1500);
-}
-
-window.onload=()=>{
-  const browserLang=navigator.language.startsWith('hi')?'hi':navigator.language.startsWith('bn')?'bn':'en';
-  document.getElementById('langSelector').value=browserLang;
-  changeLang();
-  setInterval(()=>{ const title=document.getElementById('title'); title.style.animation='glitch 0.5s ease'; setTimeout(()=>title.style.animation='',500);},3000);
-};
-</script>
+        // Copy Code Function
+        function copyCode() {
+            const codeText = document.getElementById('codeBlock').innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerText = "Copied!";
+                btn.style.backgroundColor = "#007bff";
+                setTimeout(() => {
+                    btn.innerText = "Copy Code";
+                    btn.style.backgroundColor = "#28a745";
+                }, 1500);
+            });
+        }
+    </script>
 </body>
 </html>
